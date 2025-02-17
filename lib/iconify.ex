@@ -5,6 +5,8 @@ defmodule Iconify do
   use Arrows
   use Untangle
   import Phoenix.LiveView.TagEngine
+  require Logger
+  alias Logger
   # import Phoenix.LiveView.HTMLEngine
 
   # this is executed at compile time
@@ -546,10 +548,12 @@ defmodule Iconify do
 
   defp do_prepare_icon_css(family_name, icon_name, icon_css_name, opts) do
     css_path = css_path()
-    IO.inspect(css_path)
-    IO.inspect(Path.expand(css_path))
-    dbg(css_path)
-    dbg(Path.expand(css_path))
+    Logger.error("CSS path: #{css_path}")
+    Logger.error("Icon CSS name: #{icon_css_name}")
+    Logger.error("Icon name: #{icon_name}")
+    Logger.error("Family name: #{family_name}")
+    Logger.error("Options: #{inspect(opts)}")
+    Logger.error("Absolute path: #{Path.expand(css_path)}")
 
     with {:ok, file} <- open_css_file(css_path),
          {exists_in_css_file?, existing_contents} <-
