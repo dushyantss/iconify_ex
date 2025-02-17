@@ -44,7 +44,7 @@ defmodule Iconify do
       iex> {:img, _fun, %{src: "/images/icons/twemoji/rabbit.svg"}} = Iconify.prepare(%{icon: "twemoji:rabbit", __changed__: nil})
 
       iex> {:css, _fun, %{icon_name: "heroicons-solid:question-mark-circle"}} = Iconify.prepare(%{icon: "non-existent-icon", __changed__: nil})
-      
+
        > Iconify.prepare(%{icon: "<svg>...</svg>", __changed__: nil})
       {:inline, _fun, %{icon: "<svg>...</svg>"}}
 
@@ -110,7 +110,7 @@ defmodule Iconify do
   ## Examples
 
       iex> %Phoenix.LiveView.Rendered{} = Iconify.manual("heroicons-solid:user", mode: :css) # Returns rendered icon HTML or data
-      
+
   """
   def manual(icon, opts \\ nil) do
     # FIXME: won't work if assigns are not tracked LiveView assigns
@@ -546,6 +546,10 @@ defmodule Iconify do
 
   defp do_prepare_icon_css(family_name, icon_name, icon_css_name, opts) do
     css_path = css_path()
+    IO.inspect(css_path)
+    IO.inspect(Path.expand(css_path))
+    dbg(css_path)
+    dbg(Path.expand(css_path))
 
     with {:ok, file} <- open_css_file(css_path),
          {exists_in_css_file?, existing_contents} <-
@@ -808,7 +812,7 @@ defmodule Iconify do
   # end
 
   # defp exists_in_css_file?(css_path, file, icon_css_name) do
-  #   check_exists_in_css_file(css_path, file, icon_css_name) 
+  #   check_exists_in_css_file(css_path, file, icon_css_name)
   #   |> Enum.at(0)
   # end
 
